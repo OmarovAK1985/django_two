@@ -1,0 +1,13 @@
+{% extends 'recipes/base.html' %}
+
+
+{% block body %}
+{% for k, v in list.items %}
+<ul class="ul-list">
+    <a href="recipe/{{k}}" class="list-group-item">{{ k.capitalize }}</a>
+</ul>
+
+{% endfor %}
+
+<a href="{% url 'pagin:home' %}">Ссылка на пагинацию</a>
+{% endblock body %}

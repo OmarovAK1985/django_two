@@ -1,0 +1,57 @@
+{% extends 'recipes/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+<a href="{% url 'home:blog' %}">Главная</a>
+{% if count != None %}
+<p class="text-warning text-center">
+    Подсчет блюда {{name.capitalize}} для {{count}} персон
+</p>
+{% endif %}
+
+
+<p class="text-primary">Название блюда: {{ name.capitalize }}</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>№ п/п</th>
+            <th>Название ингредиента</th>
+            <th>Количество</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for k, v in my_dict.items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ k }}</td>
+            <td>{{ v }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if count == None %}
+<form method="GET">
+    <h2 class="text-center">Форма подсчета количества ингредиентов</h2>
+    <div class="form_group">
+    {% csrf_token %}
+    {{form | crispy}}
+
+    <input class="btn btn-success mt-2" type="submit" value="Рассчитать">
+    </div>
+</form>
+
+
+
+{% endif %}
+
+{% if count != None %}
+
+<a href="{{name}}">Ввести другое значение</a>
+
+
+
+{% endif %}
+
+{% endblock body %}
